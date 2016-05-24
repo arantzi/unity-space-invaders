@@ -104,7 +104,8 @@ public class GeneradorAliens : MonoBehaviour
 					}
 				}
 			}
-
+			//Al llegar al borde se aumenta la velocidad (un 15%)
+			velocidad=velocidad*1.15f;
 
 			if (rumbo == direccion.DER) {
 				rumbo = direccion.IZQ;
