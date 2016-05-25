@@ -66,9 +66,24 @@ public class ControlAlien : MonoBehaviour
 			Destroy (gameObject);
 
 		} else if (coll.gameObject.tag == "nave") {
-			//SceneManager.LoadScene ("Nivel1");
-			//Cargamos la escena de "GameOver"
-			SceneManager.LoadScene ("GameOver");
+            //SceneManager.LoadScene ("Nivel1");
+            
+			compruebaHiScore(marcador.GetComponent<ControlMarcador>().puntos);
+			
+            //Cargamos la escena de "GameOver"
+            SceneManager.LoadScene ("GameOver");
 		}
 	}
+	
+	void compruebaHiScore (int score)
+	{
+			//Guardamos los puntos si son HiScore
+		int oldHighscore = PlayerPrefs.GetInt("highscore", 0);  
+		if(score > oldHighscore)
+		{
+			 PlayerPrefs.SetInt("highscore",score);
+			 PlayerPrefs.Save();
+		}
+	}
+
 }
