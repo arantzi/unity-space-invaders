@@ -25,6 +25,9 @@ public class ControlMarcador : MonoBehaviour
 	{
 		// Actualizamos el marcador
 		t.text = "Puntos: " + puntos.ToString () + "\n";
+		//Añadimos el HiScore
+		t.text += "(HiScore: " + PlayerPrefs.GetInt("highscore",0).ToString () + ")\n";
+		
 	}
 
 }

@@ -7,9 +7,16 @@ public class GeneradorAliens : MonoBehaviour
 
 	// Publicamos la variable para conectarla desde el editor
 	public Rigidbody2D prefabAlien1;
+	public Rigidbody2D prefabAlien2;
+	public Rigidbody2D prefabAlien3;
+	public Rigidbody2D prefabAlien4;
+
 
 	// Referencia para guardar una matriz de objetos
 	private Rigidbody2D[,] aliens;
+	
+	// Y un objeto alien
+	private Rigidbody2D alien;
 
 	// Tamaño de la invasión alienígena
 	private const int FILAS = 4;
@@ -90,8 +97,12 @@ public class GeneradorAliens : MonoBehaviour
 
 		// Si no quedan aliens, hemos terminado
 		if( numAliens == 0 ) {
-			SceneManager.LoadScene ("Nivel1");
-		}
+			//SceneManager.LoadScene ("Nivel1");
+			//En lugar de recargar la escena (que origina perder los puntos) 
+			//recargamos los aliens
+			Start();
+			
+			}
 
 		// Si al menos un alien ha tocado el borde, todo el pack cambia de rumbo
 		if (limiteAlcanzado == true) {
@@ -104,7 +115,8 @@ public class GeneradorAliens : MonoBehaviour
 					}
 				}
 			}
-
+			//Al llegar al borde se aumenta la velocidad (un 15%)
+			velocidad=velocidad*1.10f;
 
 			if (rumbo == direccion.DER) {
 				rumbo = direccion.IZQ;
@@ -137,7 +149,19 @@ public class GeneradorAliens : MonoBehaviour
 				Vector2 posicion = new Vector2 (origen.x + (espacioH * j), origen.y + (espacioV * i));
 
 				// Instanciamos el objeto partiendo del prefab
-				Rigidbody2D alien = (Rigidbody2D)Instantiate (prefabAlien1, posicion, transform.rotation);
+				// Uno diferente en cada fila
+				if (i==0){
+					alien = (Rigidbody2D)Instantiate (prefabAlien1, posicion, transform.rotation);
+				}
+				if (i==1){
+					alien = (Rigidbody2D)Instantiate (prefabAlien2, posicion, transform.rotation);
+				}
+				if (i==2){
+					alien = (Rigidbody2D)Instantiate (prefabAlien3, posicion, transform.rotation);
+				}
+				if (i==3){
+					alien = (Rigidbody2D)Instantiate (prefabAlien4, posicion, transform.rotation);
+				}
 
 				// Guardamos el alien en el array
 				aliens [i, j] = alien;
